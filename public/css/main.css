@@ -1,0 +1,22 @@
+
+#listDiv {
+
+	border: 2px solid black;
+	padding: 1.5rem;
+	margin-top: .25rem;
+	display: inline-block;
+	width: 320px;
+	height: 220px;
+
+}
+
+#listName {
+
+	text-align: center;
+}
+
+#listName a {
+
+	/*font-weight: 800;*/
+	color: blue;
+}
