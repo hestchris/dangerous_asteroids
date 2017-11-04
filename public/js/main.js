@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-	$('#rangeSearch').hide()
+		$('#rangeSearch').hide()
 
 	$('#dayRadio').on('click', function(event){
 
@@ -28,7 +28,6 @@ $(document).ready(function(){
 		$('#endDate')[0].value = ''
 	})
 
-	$()
 
 	$('#search').on('submit', function(event){
 		
@@ -54,14 +53,12 @@ $(document).ready(function(){
 		else {
 
 		$.get(`/search?start_date=${userDate}`, function(body, status) {
-			
+
 			body = JSON.parse(body)
 
 			var hazardousAsteroids = []
 			
 			for(var asteroid of body.near_earth_objects[userDate]) {
-
-				console.log(asteroid)
 				
 				var name = asteroid.name
 				
@@ -93,8 +90,8 @@ $(document).ready(function(){
 
 				}
 						$('#entryInfo').append (
-							`<h2>${'Date: ' + formattedDate}</h2>
-							<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
+							`<h2 class="dateInfo">${'Date: ' + formattedDate}</h2>
+							<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>`
 							
 							)
 			})
@@ -113,6 +110,14 @@ $(document).ready(function(){
 		var startDate = $('#startDate').val()
 		
 		var endDate = $('#endDate').val()
+
+		var splitDate = startDate.split('-')
+		splitDate.push(splitDate.shift())
+		var formatStartDate = splitDate.join('/')
+
+		var splitDate = endDate.split('-')
+		splitDate.push(splitDate.shift())
+		var formatEndDate = splitDate.join('/')
 
 		
 		if ( startDate === '' && endDate === '') {
@@ -137,12 +142,8 @@ $(document).ready(function(){
 			body = JSON.parse(body)
 
 			var hazardousAsteroids = []
-
-			// console.log(body)
-
+			
 			for(var day in body.near_earth_objects) {
-
-				// console.log(day)
 
 				for(var asteroid = 0; asteroid < body.near_earth_objects[day].length; asteroid++) {
 
@@ -182,11 +183,21 @@ $(document).ready(function(){
 					}
 				}
 			}
+						if (body.code === 400) {
+
+						$('#message').append(`<h2>Search is limited to 7 continuous days.</h2>`)
+						
+						}
+						
+						else {
+						
 						$('#entryInfo').append(
 							`
-							<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>
+							<h2 class="dateInfo">${'Date Range: ' + formatStartDate + ' - ' + formatEndDate}</h2>
+							<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>
 							`
 							)
+						}
 
 		})
 

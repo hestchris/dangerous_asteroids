@@ -8,14 +8,14 @@ html {
 body {
 
 	font-family: 'Oswald', sans-serif;
-	padding: 1.5rem;
 	text-align: center;
 }
 
 h1 {
 
-	font-size: 3rem;
+	font-size: 3.25rem;
 	margin-top: 0;
+	font-variant: small-caps;
 }
 
 h3 {
@@ -25,16 +25,31 @@ h3 {
 
 #searchField {
 
-	margin-left: 1rem;
 	display: inline-block;
 	text-align: left;
+	font-variant: small-caps;
 }
 
-#searchField
+#searchField h2 {
+
+	font-variant: normal;
+
+}
+
+#search {
+
+	position: relative;
+}
 
 #search label {
 
+	position: relative;
 	text-decoration: underline;
+}
+
+#rangeSearch {
+
+	position: relative;
 }
 
 #rangeSearch label {
@@ -77,8 +92,12 @@ input {
 	height: 1.5rem;
 	width: 5rem;
 	font-size: .75rem;
-}
+	position: absolute;
+	left: 25%;
+	margin-bottom: 1rem;
+	cursor: pointer;
 
+}
 
 .form-check-input {
 
@@ -88,10 +107,34 @@ input {
 .input {
 
 	height: 1.5rem;
-	width: 10rem;
-	text-align: center; 
+	width: 9rem;
+	text-align: right; 
 	border: 1px solid black;
 }
 
+.input[type='date'] {
 
+	font-size: .75rem;
+	text-transform: uppercase;
+}
+
+#entryInfo {
+
+	margin-top: 3rem;
+}
+
+#entryInfo h2 {
+
+	margin: 1rem;
+}
+
+#message h2 {
+
+	margin-top: 3rem;
+}
+
+.dateInfo {
+
+	text-decoration: underline;
+}
 
