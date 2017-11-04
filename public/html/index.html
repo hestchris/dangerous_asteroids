@@ -6,17 +6,28 @@
 </head>
 <body>
 	<h1>Dangerous Asteroids</h1>
-
-	<h2>Search a date: </h2>
-	<form id="search">
-		<label for="dateInput">Enter Date: </label>
-		<br>
-		<input id="dateInput" type="date" placeholder="(yyyy/mm/dd)" name="Date" autofocus="true">
-		<br>
-		<input type="submit" name="Submit">
-	</form>
-	<div id="entryInfo"></div>
-	<div id="entry"></div>
+	<div id="searchField">
+		<form id="search">
+			<h2>Search any date: </h2>
+			<label for="dateInput">Enter Date: </label>
+			<br>
+			<input id="dateInput" type="date" placeholder="(yyyy/mm/dd)" name="Date" autofocus="true">
+			<br>
+			<input class="searchSubmit" type="submit" value="Search" name="Submit">
+		</form>
+		<form id="rangeSearch">
+			<h2>Search any week: </h2>
+			<h4>Start Date: </h4>
+			<input id="startDate" type="date" placeholder="(yyyy/mm/dd)" autofocus="true">
+			<h4>End Date:</h4>
+			<input id="endDate" type="date" placeholder="(yyyy/mm/dd)">
+			<br>
+			<input class="searchSubmit" type="submit" value="Search" name="Submit">
+		</form>
+	</div>	
+		<div id="entryInfo"></div>
+		<div id="entry"></div>
+		<div id="message"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="/js/main.js"></script>
 </body>

@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+body {
+
+	font-family: 'Oswald', sans-serif;
+}
+
+h1 {
+
+	font-size: 3rem;
+}
+
+input {
+
+	outline-color: black;
+}
 
 #listDiv {
 
@@ -6,7 +22,7 @@
 	margin-top: .25rem;
 	display: inline-block;
 	width: 320px;
-	height: 220px;
+	height: 225px;
 
 }
 
@@ -19,4 +35,15 @@
 
 	/*font-weight: 800;*/
 	color: blue;
+}
+
+.searchSubmit {
+
+	background-color: black;
+	color: white;
+}
+
+#searchField {
+
+	margin-left: 1rem;
 }
