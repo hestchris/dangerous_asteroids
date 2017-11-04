@@ -7,6 +7,20 @@
 <body>
 	<h1>Dangerous Asteroids</h1>
 	<div id="searchField">
+<!-- radio buttons -->
+		<div class="form-check">
+		  <label class="form-check-label">
+		    <input id="dayRadio" class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
+		    Day
+		  </label>
+		</div>
+		<div class="form-check">
+		  <label class="form-check-label">
+		    <input id="weekRadio" class="form-check-input" type="radio" name="Radios" id="Radios2" value="option2">
+		 	Week
+		  </label>
+		</div>
+
 		<form id="search">
 			<h2>Search any date: </h2>
 			<label for="dateInput">Enter Date: </label>
@@ -17,9 +31,12 @@
 		</form>
 		<form id="rangeSearch">
 			<h2>Search any week: </h2>
-			<h4>Start Date: </h4>
+			<label>Start Date: </label>
+			<br>
 			<input id="startDate" type="date" placeholder="(yyyy/mm/dd)" autofocus="true">
-			<h4>End Date:</h4>
+			<br>
+			<label>End Date:</label>
+			<br>
 			<input id="endDate" type="date" placeholder="(yyyy/mm/dd)">
 			<br>
 			<input class="searchSubmit" type="submit" value="Search" name="Submit">

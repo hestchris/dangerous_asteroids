@@ -1,6 +1,22 @@
 
 $(document).ready(function(){
 
+	$('#rangeSearch').hide()
+
+	$('#dayRadio').on('click', function(event){
+
+		$('#search').show()
+		$('#rangeSearch').hide()
+	})
+
+	$('#weekRadio').on('click', function(event){
+
+		$('#rangeSearch').show()
+		$('#search').hide()
+	})
+
+	$()
+
 	$('#search').on('submit', function(event){
 		
 		event.preventDefault()
