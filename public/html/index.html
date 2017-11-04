@@ -6,9 +6,14 @@
 	<title>Dangerous Asteroids</title>
 </head>
 <body>
+	
 	<h1>Dangerous Asteroids</h1>
+
+<!-- Search Form -->
 	<div id="searchField">
+
 <!-- Radio Buttons -->
+	<div id="radioButtons">
 		<div class="form-check">
 		  <label class="form-check-label">
 		    <input id="dayRadio" class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
@@ -21,6 +26,8 @@
 		 	Week
 		  </label>
 		</div>
+	</div>		
+
 <!-- Single Day Search -->
 		<form id="search">
 			<h2>Search any date</h2>
@@ -30,6 +37,7 @@
 			<br>
 			<input class="searchSubmit" type="submit" value="Search" name="Submit">
 		</form>
+
 <!-- Weekly Search -->
 		<form id="rangeSearch">
 			<h2>Search any week	</h2>
@@ -43,11 +51,13 @@
 			<br>
 			<input class="searchSubmit" type="submit" value="Search" name="Submit">
 		</form>
+
 <!-- Results Display -->
 	</div>	
 		<div id="entryInfo"></div>
 		<div id="entry"></div>
 		<div id="message"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="/js/main.js"></script>
 </body>

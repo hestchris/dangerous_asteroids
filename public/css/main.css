@@ -16,6 +16,7 @@ h1 {
 	font-size: 3.25rem;
 	margin-top: 0;
 	font-variant: small-caps;
+	border-bottom: 2px solid grey;
 }
 
 h3 {
@@ -96,7 +97,6 @@ input {
 	left: 25%;
 	margin-bottom: 1rem;
 	cursor: pointer;
-
 }
 
 .form-check-input {
@@ -121,6 +121,7 @@ input {
 #entryInfo {
 
 	margin-top: 3rem;
+	border-top: 2px solid grey;
 }
 
 #entryInfo h2 {
