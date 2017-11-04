@@ -7,12 +7,25 @@ $(document).ready(function(){
 
 		$('#search').show()
 		$('#rangeSearch').hide()
+
+		$('#entryInfo').empty()
+		$('#entry').empty()
+		$('#message').empty()
+
+		$('#dateInput')[0].value = ''
 	})
 
 	$('#weekRadio').on('click', function(event){
 
 		$('#rangeSearch').show()
 		$('#search').hide()
+
+		$('#entryInfo').empty()
+		$('#entry').empty()
+		$('#message').empty()
+
+		$('#startDate')[0].value = ''
+		$('#endDate')[0].value = ''
 	})
 
 	$()
@@ -69,9 +82,9 @@ $(document).ready(function(){
 						`
 						<div id='listDiv'>
 						<h3 id='listName'><a href="${link}" target="_blank">${name}<a></h3>
-						 <h4 id='listDiameter'>${'Estimated Diameter: ' + diameter + 'feet'}</h4>
-						 <h4 id='listVelocity'>${'Velocity: ' + velocity + 'mph'}</h4>
-						 <h4 id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}
+						 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
+						 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
+						 <p id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}</p>
 						 </div>
 						 `
 						)
@@ -79,18 +92,13 @@ $(document).ready(function(){
 					}		
 
 				}
-			
 						$('#entryInfo').append (
 							`<h2>${'Date: ' + formattedDate}</h2>
 							<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
 							
 							)
 			})
-
-			}
-
-				
-
+		}			
 })
 
 	$('#rangeSearch').on('submit', function(event){
@@ -103,10 +111,10 @@ $(document).ready(function(){
 
 
 		var startDate = $('#startDate').val()
-		// console.log(startDate)
+		
 		var endDate = $('#endDate').val()
-		// console.log(endDate)
 
+		
 		if ( startDate === '' && endDate === '') {
 
 			$('#message').append(`<h2>Please enter a valid START and END date.</h2>`)
@@ -159,27 +167,26 @@ $(document).ready(function(){
 						var link = dayAsteroid.nasa_jpl_url
 
 						hazardousAsteroids.push(dayAsteroid)
-						
 
-						$('#entry').append (
+						$('#entry').append(
 						`
 						<div id='listDiv'>
 						<h3 id='listName'><a href="${link}" target="_blank">${name}<a></h3>
-						<h4 id="listDate">${'Date: ' + formattedDate}</h4>
-						 <h4 id='listDiameter'>${'Estimated Diameter: ' + diameter + 'feet'}</h4>
-						 <h4 id='listVelocity'>${'Velocity: ' + velocity + 'mph'}</h4>
-						 <h4 id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}
+						<p id="listDate">${'Date: ' + formattedDate}</p>
+						 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
+						 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
+						 <p id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}</p>
 						 </div>
 						 `
 						)	
 					}
 				}
 			}
-						$('#entryInfo').append (
-							`<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
+						$('#entryInfo').append(
+							`
+							<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>
+							`
 							)
-
-						// console.log(hazardousAsteroids.length)
 
 		})
 

@@ -1,13 +1,46 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
+html {
+
+	font-size: 18px;
+}
+
 body {
 
 	font-family: 'Oswald', sans-serif;
+	padding: 1.5rem;
+	text-align: center;
 }
 
 h1 {
 
 	font-size: 3rem;
+	margin-top: 0;
+}
+
+h3 {
+
+	margin-top: 0;
+}
+
+#searchField {
+
+	margin-left: 1rem;
+	display: inline-block;
+	text-align: left;
+}
+
+#searchField
+
+#search label {
+
+	text-decoration: underline;
+}
+
+#rangeSearch label {
+
+	text-decoration: underline;
+
 }
 
 input {
@@ -25,7 +58,6 @@ input {
 	display: inline-block;
 	width: 320px;
 	height: 225px;
-
 }
 
 #listName {
@@ -35,7 +67,6 @@ input {
 
 #listName a {
 
-	/*font-weight: 800;*/
 	color: blue;
 }
 
@@ -43,9 +74,24 @@ input {
 
 	background-color: black;
 	color: white;
+	height: 1.5rem;
+	width: 5rem;
+	font-size: .75rem;
 }
 
-#searchField {
 
-	margin-left: 1rem;
+.form-check-input {
+
+	cursor: pointer;
 }
+
+.input {
+
+	height: 1.5rem;
+	width: 10rem;
+	text-align: center; 
+	border: 1px solid black;
+}
+
+
+
