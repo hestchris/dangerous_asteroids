@@ -11,6 +11,7 @@ $(document).ready(function() {
 			$('#entryInfo').empty()
 			$('#entry').empty()
 			$('#message').empty()
+			$('#summary').empty()
 
 			$('#dateInput')[0].value = ''
 		})
@@ -23,6 +24,7 @@ $(document).ready(function() {
 			$('#entryInfo').empty()
 			$('#entry').empty()
 			$('#message').empty()
+			$('#summary').empty()
 
 			$('#startDate')[0].value = ''
 			$('#endDate')[0].value = ''
@@ -37,6 +39,7 @@ $(document).ready(function() {
 			$('#entryInfo').empty()
 			$('#entry').empty()
 			$('#message').empty()
+			$('#summary').empty()
 			
 			var userDate = $('#dateInput').val()
 			
@@ -53,14 +56,20 @@ $(document).ready(function() {
 
 			else {
 
+// Single-day GET request
+
 			$.get(`/search?start_date=${userDate}`, function(body, status) {
 
 				body = JSON.parse(body)
+
+				// console.log(body.near_earth_objects)
 
 				var hazardousAsteroids = []
 				
 				for(var asteroid of body.near_earth_objects[userDate]) {
 					
+					// console.log(asteroid)
+
 					var name = asteroid.name
 					
 					var diameter = Math.floor(Number(asteroid.estimated_diameter.feet.estimated_diameter_max)).toLocaleString()
@@ -74,6 +83,7 @@ $(document).ready(function() {
 					if(asteroid.is_potentially_hazardous_asteroid) {
 
 						hazardousAsteroids.push(asteroid)
+
 					
 // Print results to html page
 
@@ -94,9 +104,46 @@ $(document).ready(function() {
 
 // Print to html
 							$('#entryInfo').append (
-								`<h2 class="dateInfo">${'Date: ' + formattedDate}</h2>
-								<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>`
 								
+								`<h2 class="dateInfo">${'Date: ' + formattedDate}</h2>`
+		
+								)
+				
+							
+							if (hazardousAsteroids.length === 0) {
+
+								$('#entryInfo').append (	
+
+									`<h2>No Dangerous Asteroids.</h2>`
+									)
+								}
+
+								else {
+
+									$('#entryInfo').append (
+										
+										`<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>`
+										
+										)
+								}
+
+// Print Summary
+
+							$('#summary').append (
+								`<div id="summaryAccordion" data-children=".item">
+								  <div class="item">
+								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
+								      View Summary
+								    </a>
+								    <div id="summaryAccordion1" class="collapse" role="tabpanel">
+								      <ul id="summaryList" class="mb-3">
+								      <li>${'Date: ' + formattedDate}</li>
+								      <li>${'Total Asteroids: ' + body.near_earth_objects[userDate].length}</li>
+								      <li>${'Dangerous Asteroids: ' + hazardousAsteroids.length}</li>
+								      </ul>
+								    </div>
+								  </div>
+								</div>`
 								)
 				})
 			}			
@@ -111,6 +158,7 @@ $(document).ready(function() {
 			$('#entry').empty()
 			$('#entryInfo').empty()
 			$('#message').empty()
+			$('#summary').empty()
 
 
 			var startDate = $('#startDate').val()
@@ -148,11 +196,20 @@ $(document).ready(function() {
 
 				body = JSON.parse(body)
 
+				// console.log(body.near_earth_objects)
+
+				var totalAsteroids = []
+
 				var hazardousAsteroids = []
 				
 				for(var day in body.near_earth_objects) {
 
+
 					for(var asteroid = 0; asteroid < body.near_earth_objects[day].length; asteroid++) {
+
+						totalAsteroids.push(body.near_earth_objects[day][asteroid])
+
+						
 
 						if(body.near_earth_objects[day][asteroid].is_potentially_hazardous_asteroid === true) {
 
@@ -192,6 +249,7 @@ $(document).ready(function() {
 						}
 					}
 				}
+			
 
 // Error Handling for incorrect api request
 // Print results info to html
@@ -204,13 +262,46 @@ $(document).ready(function() {
 							
 							else {
 							
-							$('#entryInfo').append(
+							$('#entryInfo').append (
 								`
-								<h2 class="dateInfo">${'Date Range: ' + formatStartDate + ' - ' + formatEndDate}</h2>
-								<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>
-								`
+								<h3 class="dateInfo">${'Date Range: ' + formatStartDate + ' - ' + formatEndDate}</h3>`
 								)
+
+								if (hazardousAsteroids.length === 0) {
+
+									$('#entryInfo').append (
+
+									`<h3>No Dangerous Asteroids.</h3>`
+
+									)
+								}
+
+								else {
+
+									$('#entryInfo').append (
+										
+										`<h3>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
+										
+										)
+								}
 							}
+
+							$('#summary').append (
+								`<div id="summaryAccordion" data-children=".item">
+								  <div class="item">
+								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
+								      View Summary
+								    </a>
+								    <div id="summaryAccordion1" class="collapse" role="tabpanel">
+								      <ul id="summaryList" class="mb-3">
+								      <li>${'Date Range: ' + formatStartDate + ' - ' + formatEndDate}</li>
+								      <li>${'Total Asteroids: ' + totalAsteroids.length}</li>
+								      <li>${'Dangerous Asteroids: ' + hazardousAsteroids.length}</li>
+								      </ul>
+								    </div>
+								  </div>
+								</div>`
+								)
 
 			})
 

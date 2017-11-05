@@ -4,11 +4,13 @@ var app = express()
 
 const request = require('request')
 
+var key = 'A8c7SEJlofzqwm2mcWv6G8qlaothFddXpYyzAtgM'
+
 
 app.use(express.static('./public'))
 
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
 
 	res.sendFile('./public/html/index.html', {root:'./'})
 
@@ -16,35 +18,34 @@ app.get('/', function(req, res){
 
 })
 
-app.get('/search', function(req, res){
+app.get('/search', function(req, res) {
 	
 
-		var nasaAPI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${req.query.start_date}&end_date=${req.query.start_date}&api_key=A8c7SEJlofzqwm2mcWv6G8qlaothFddXpYyzAtgM
-`
+		var nasaAPI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${req.query.start_date}&end_date=${req.query.start_date}&api_key=${key}`
 		request (nasaAPI, function(err, response, dataFromServer) {
 			
 			res.send(dataFromServer)
 			
-			console.log('started single-date api')
+			console.log('single-date api')
 		})
 	})
 
-app.get('/range_search', function(req, res){
+app.get('/range_search', function(req, res) {
 
-		var nasaAPI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${req.query.start_date}&end_date=${req.query.end_date}&api_key=A8c7SEJlofzqwm2mcWv6G8qlaothFddXpYyzAtgM
-`
-		request (nasaAPI, function(err, response, dataFromServer){
+		var nasaAPI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${req.query.start_date}&end_date=${req.query.end_date}&api_key=${key}`
+		request (nasaAPI, function(err, response, dataFromServer) {
 			
 			res.send(dataFromServer)
 			
-			console.log('started range api')
+			console.log('range-date api')
 	})
 })
 
 
-app.listen(8080, function(){
+app.listen(8081, function() {
 
-	console.log("running on port 8080")
+	console.log("'NASA_part2' on port 8081")
+
 })
 
 
