@@ -74,6 +74,7 @@ input {
 	display: inline-block;
 	width: 320px;
 	height: 250px;
+	overflow: scroll;
 }
 
 #listName {

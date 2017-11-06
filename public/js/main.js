@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
 					var name = asteroid.name
-					
+
 					var diameter = Math.floor(Number(asteroid.estimated_diameter.feet.estimated_diameter_max)).toLocaleString()
 				
 					var velocity = Math.floor(Number(asteroid.close_approach_data[0].relative_velocity.miles_per_hour)).toLocaleString()
@@ -96,7 +96,7 @@ $(document).ready(function() {
 						$('#entry').append (
 							`
 							<div id='listDiv'>
-							<h3 id='listName'><a href="${link}" target="_blank">${name}<a></h3>
+							<h4 id='listName'><a href="${link}" target="_blank">${name}<a></h4>
 							 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
 							 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
 							 <p id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}</p>
@@ -107,7 +107,7 @@ $(document).ready(function() {
 						}		
 
 					}
-
+						
 // Print to html
 							$('#entryInfo').append (
 								
@@ -152,7 +152,10 @@ $(document).ready(function() {
 								</div>
 								`
 								)
+
 				})
+
+
 			}			
 	})
 
@@ -255,7 +258,7 @@ $(document).ready(function() {
 							$('#entry').append(
 							`
 							<div id='listDiv'>
-							<h3 id='listName'><a href="${link}" target="_blank">${name}<a></h3>
+							<h4 id='listName'><a href="${link}" target="_blank">${name}<a></h4>
 							<p id="listDate">${'Date: ' + formattedDate}</p>
 							 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
 							 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
@@ -322,6 +325,7 @@ $(document).ready(function() {
 								  </div>
 								</div>`
 								)
+
 
 			})
 

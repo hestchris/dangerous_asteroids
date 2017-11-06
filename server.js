@@ -41,6 +41,19 @@ app.get('/range_search', function(req, res) {
 	})
 })
 
+app.get('/sentry', function(req, res) {
+
+	var sentryAPI = `https://ssd-api.jpl.nasa.gov/sentry.api?spk=${req.query.spk}`
+	request (sentryAPI, function(err, response, dataFromServer) {
+
+		res.send(dataFromServer)
+
+		console.log('sentry api')
+	})
+
+
+})
+
 
 app.listen(8081, function() {
 
