@@ -30,7 +30,7 @@ $(document).ready(function() {
 			$('#endDate')[0].value = ''
 		})
 
-// Single-Date
+// SINGLE-DATE
 
 		$('#search').on('submit', function(event) {
 			
@@ -42,6 +42,8 @@ $(document).ready(function() {
 			$('#summary').empty()
 			
 			var userDate = $('#dateInput').val()
+
+// Reformat the Date to US time format
 			
 			var splitDate = userDate.split('-')
 			splitDate.push(splitDate.shift())
@@ -70,6 +72,9 @@ $(document).ready(function() {
 					
 					// console.log(asteroid)
 
+// Declare variables and push into the hazardousAsteroids array
+
+
 					var name = asteroid.name
 					
 					var diameter = Math.floor(Number(asteroid.estimated_diameter.feet.estimated_diameter_max)).toLocaleString()
@@ -80,6 +85,7 @@ $(document).ready(function() {
 
 					var link = asteroid.nasa_jpl_url
 
+					
 					if(asteroid.is_potentially_hazardous_asteroid) {
 
 						hazardousAsteroids.push(asteroid)
@@ -143,13 +149,14 @@ $(document).ready(function() {
 								      </ul>
 								    </div>
 								  </div>
-								</div>`
+								</div>
+								`
 								)
 				})
 			}			
 	})
 
-// Range-Date 
+// RANGE-DATE
 
 		$('#rangeSearch').on('submit', function(event) {
 
@@ -168,6 +175,8 @@ $(document).ready(function() {
 			var splitDate = startDate.split('-')
 			splitDate.push(splitDate.shift())
 			var formatStartDate = splitDate.join('/')
+
+// Reformat the Date to US time format
 
 			var splitDate = endDate.split('-')
 			splitDate.push(splitDate.shift())
@@ -192,6 +201,8 @@ $(document).ready(function() {
 
 			else {
 
+// Range-date GET request
+
 			$.get(`/range_search?start_date=${startDate}&end_date=${endDate}`, function(body, status) {
 
 				body = JSON.parse(body)
@@ -215,9 +226,13 @@ $(document).ready(function() {
 
 							var date = body.near_earth_objects[day][asteroid].close_approach_data[0].close_approach_date
 
+// Reformat the Date to US time format
+
 							var splitDate = date.split('-')
 							splitDate.push(splitDate.shift())
 							var formattedDate = splitDate.join('/')
+
+// Declare Variables and push into the hazardousAsteroids array
 
 							var dayAsteroid = body.near_earth_objects[day][asteroid]
 
@@ -232,6 +247,8 @@ $(document).ready(function() {
 							var link = dayAsteroid.nasa_jpl_url
 
 							hazardousAsteroids.push(dayAsteroid)
+
+							
 
 // Print results to the html page 
 
@@ -249,9 +266,12 @@ $(document).ready(function() {
 						}
 					}
 				}
-			
+							
+							// console.log(hazardousAsteroids)
 
-// Error Handling for incorrect api request
+
+
+// Error handling for invalid api request
 // Print results info to html
 
 							if (body.code === 400) {
