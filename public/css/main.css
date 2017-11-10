@@ -31,8 +31,11 @@ h3 {
 	font-size: .75rem;
 	height: 1.5rem;
 	width: 5rem;
+	border: 2px solid #A7A8B1 ;
 	border-radius: .25rem;
 	outline-color: black;
+	cursor: pointer;
+
 }
 
 #showWeek {
@@ -42,8 +45,11 @@ h3 {
 	font-size: .75rem;
 	height: 1.5rem;
 	width: 5rem;
+	border: 2px solid #A7A8B1;
 	border-radius: .25rem;
 	outline-color: black;
+	cursor: pointer;
+
 }
 
 #searchField {
@@ -121,6 +127,8 @@ input {
 	transform: translateX(-50%);
 	margin-bottom: 1rem;
 	cursor: pointer;
+	border: 2px solid #A7A8B1;
+	
 }
 
 .form-check-input {

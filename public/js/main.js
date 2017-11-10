@@ -13,7 +13,7 @@ $(document).ready(function() {
 			$('#summary').empty()
 		}
 
-		$('#dayRadio').on('click', function(event) {
+		$('#dayRadio').on('click', function() {
 
 			resetHTML()
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
 			$('#dateInput').focus()
 		})
 
-		$('#weekRadio').on('click', function(event) {
+		$('#weekRadio').on('click', function() {
 			
 			resetHTML()
 
@@ -38,8 +38,9 @@ $(document).ready(function() {
 			$('#startDate').focus()
 		})
 
-// GET TODAY
+// GET TODAY ====================================================================================================================================================================================
 
+			
 			$('#showToday').on('click', function(){
 
 				resetHTML()
@@ -63,16 +64,12 @@ $(document).ready(function() {
 
 						body = JSON.parse(body)
 
-						// console.log(body.near_earth_objects)
-
 						var hazardousAsteroids = []
 
 						if (body.near_earth_objects[formatToday]) {
 						
 						for(var asteroid of body.near_earth_objects[formatToday]) {
 							
-							// console.log(asteroid)
-
 // Declare variables and push into the hazardousAsteroids array
 
 
@@ -164,8 +161,9 @@ $(document).ready(function() {
 			})
 										
 
-// SINGLE-DATE
+// SINGLE-DATE ================================================================================================================================================================================
 
+		
 		$('#search').on('submit', function(event) {
 			
 			event.preventDefault()
@@ -174,11 +172,13 @@ $(document).ready(function() {
 			
 			var userDate = $('#dateInput').val()
 
+
 // Reformat the Date to US time format
 			
 			var splitDate = userDate.split('-')
 			splitDate.push(splitDate.shift())
 			var formattedDate = splitDate.join('/')
+
 
 // Error Handling for single day form
 
@@ -189,21 +189,19 @@ $(document).ready(function() {
 
 			else {
 
+
 // Single-day GET request
 
-			$.get(`/search?start_date=${userDate}`, function(body, status) {
+				$.get(`/search?start_date=${userDate}`, function(body, status) {
 
-				body = JSON.parse(body)
+					body = JSON.parse(body)
 
-				// console.log(body.near_earth_objects)
+					var hazardousAsteroids = []
 
-				var hazardousAsteroids = []
-
-				if (body.near_earth_objects[userDate]) {
-				
-				for(var asteroid of body.near_earth_objects[userDate]) {
+					if (body.near_earth_objects[userDate]) {
 					
-					// console.log(asteroid)
+					for(var asteroid of body.near_earth_objects[userDate]) {
+					
 
 // Declare variables and push into the hazardousAsteroids array
 
@@ -297,8 +295,9 @@ $(document).ready(function() {
 			}			
 	})
 
-// CURRENT WEEK
+// CURRENT WEEK ================================================================================================================================================================================
 
+		
 		$('#showWeek').on('click', function(){
 
 			resetHTML()
@@ -308,10 +307,9 @@ $(document).ready(function() {
 
 			var formatToday = new Date(+today - today.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
 			
-			var nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+			var pastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
 
-			var formatWeek = new Date(+nextWeek - nextWeek.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
-
+			var formatWeek = new Date(+pastWeek - pastWeek.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
 
 // Reformat the Date to US time format
 			
@@ -333,8 +331,6 @@ $(document).ready(function() {
 
 				body = JSON.parse(body)
 
-				// console.log(body.near_earth_objects)
-
 				var totalAsteroids = []
 
 				var hazardousAsteroids = []
@@ -353,15 +349,16 @@ $(document).ready(function() {
 
 
 // Reformat the Date to US time format
+
 							var date = body.near_earth_objects[day][asteroid].close_approach_data[0].close_approach_date
 
 							var splitDate = date.split('-')
 							splitDate.push(splitDate.shift())
 							var formattedDate = splitDate.join('/')
 
+
 // Declare Variables and push into the hazardousAsteroids array
 
-							
 							var days = body.near_earth_objects
 
 							var dayAsteroid = body.near_earth_objects[day][asteroid]
@@ -378,7 +375,6 @@ $(document).ready(function() {
 
 							hazardousAsteroids.push(dayAsteroid)
 
-							
 
 // Print results to the html page 
 
@@ -456,8 +452,10 @@ $(document).ready(function() {
 
 		})
 
-// RANGE-DATE
 
+// RANGE-DATE =================================================================================================================================================================================
+
+		
 		$('#rangeSearch').on('submit', function(event) {
 
 			event.preventDefault()
@@ -473,11 +471,13 @@ $(document).ready(function() {
 			splitDate.push(splitDate.shift())
 			var formatStartDate = splitDate.join('/')
 
+
 // Reformat the Date to US time format
 
 			var splitDate = endDate.split('-')
 			splitDate.push(splitDate.shift())
 			var formatEndDate = splitDate.join('/')
+
 
 // Error Handling for range form
 			
@@ -498,13 +498,12 @@ $(document).ready(function() {
 
 			else {
 
+
 // Range-date GET request
 
 			$.get(`/range_search?start_date=${startDate}&end_date=${endDate}`, function(body, status) {
 
 				body = JSON.parse(body)
-
-				// console.log(body.near_earth_objects)
 
 				var totalAsteroids = []
 
@@ -524,14 +523,15 @@ $(document).ready(function() {
 
 							var date = body.near_earth_objects[day][asteroid].close_approach_data[0].close_approach_date
 
+
 // Reformat the Date to US time format
 
 							var splitDate = date.split('-')
 							splitDate.push(splitDate.shift())
 							var formattedDate = splitDate.join('/')
 
-// Declare Variables and push into the hazardousAsteroids array
 
+// Declare Variables and push into the hazardousAsteroids array
 							
 							var days = body.near_earth_objects
 
@@ -549,29 +549,22 @@ $(document).ready(function() {
 
 							hazardousAsteroids.push(dayAsteroid)
 
-							
 
 // Print results to the html page 
 
 							$('#entry').append(
-							`
-							<div id='listDiv'>
+							
+							`<div id='listDiv'>
 							<h4 id='listName'><a href="${link}" target="_blank">${name}<a></h4>
 							<p id="listDate">${'Date: ' + formattedDate}</p>
 							 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
 							 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
 							 <p id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}</p>
-							 </div>
-							 `
+							 </div>`
 							)	
 						}
 					}
 				}
-
-
-							
-							// console.log(hazardousAsteroids)
-
 
 
 // Error handling for invalid api request
