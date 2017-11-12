@@ -3,17 +3,7 @@ $(document).ready(function() {
 
 			$('#rangeSearch').hide()
 
-// RESET HTML FUNCTION
-
-	var resetHTML = function(){
-
-			$('#entryInfo').empty()
-			$('#entry').empty()
-			$('#message').empty()
-			$('#summary').empty()
-		}
-
-		$('#dayRadio').on('click', function() {
+			$('#dayRadio').on('click', function() {
 
 			resetHTML()
 
@@ -109,7 +99,7 @@ $(document).ready(function() {
 // Print to html
 									$('#entryInfo').append (
 										
-										`<h2 class="dateInfo">${'Date: ' + formattedDate}</h2>`
+										`<h3 class="dateInfo">${'Date: ' + formattedDate}</h3>`
 				
 										)
 						
@@ -118,7 +108,7 @@ $(document).ready(function() {
 
 										$('#entryInfo').append (	
 
-											`<h2>No Dangerous Asteroids.</h2>`
+											`<h3>No Dangerous Asteroids.</h3>`
 											)
 										}
 
@@ -126,7 +116,7 @@ $(document).ready(function() {
 
 											$('#entryInfo').append (
 												
-												`<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>`
+												`<h3>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
 												
 												)
 										}
@@ -138,7 +128,7 @@ $(document).ready(function() {
 										    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
 										      View Summary
 										    </a>
-										    <div id="summaryAccordion1" class="collapse" role="tabpanel">
+										    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 										      <ul id="summaryList" class="mb-3">
 										      <li>${'Date: ' + formattedDate}</li>
 										      <li>${'Total Asteroids: ' + body.near_earth_objects[formatToday].length}</li>
@@ -242,7 +232,7 @@ $(document).ready(function() {
 // Print to html
 							$('#entryInfo').append (
 								
-								`<h2 class="dateInfo">${'Date: ' + formattedDate}</h2>`
+								`<h3 class="dateInfo">${'Date: ' + formattedDate}</h3>`
 		
 								)
 				
@@ -251,7 +241,7 @@ $(document).ready(function() {
 
 								$('#entryInfo').append (	
 
-									`<h2>No Dangerous Asteroids.</h2>`
+									`<h3>No Dangerous Asteroids.</h3>`
 									)
 								}
 
@@ -259,7 +249,7 @@ $(document).ready(function() {
 
 									$('#entryInfo').append (
 										
-										`<h2>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h2>`
+										`<h3>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
 										
 										)
 								}
@@ -272,7 +262,7 @@ $(document).ready(function() {
 								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
 								      View Summary
 								    </a>
-								    <div id="summaryAccordion1" class="collapse" role="tabpanel">
+								    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 								      <ul id="summaryList" class="mb-3">
 								      <li>${'Date: ' + formattedDate}</li>
 								      <li>${'Total Asteroids: ' + body.near_earth_objects[userDate].length}</li>
@@ -295,7 +285,7 @@ $(document).ready(function() {
 			}			
 	})
 
-// CURRENT WEEK ================================================================================================================================================================================
+// PAST WEEK ================================================================================================================================================================================
 
 		
 		$('#showWeek').on('click', function(){
@@ -307,27 +297,27 @@ $(document).ready(function() {
 
 			var formatToday = new Date(+today - today.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
 			
-			var pastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+			var lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
 
-			var formatWeek = new Date(+pastWeek - pastWeek.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
+			var formatWeek = new Date(+lastWeek - lastWeek.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
 
 // Reformat the Date to US time format
 			
-			var splitDate = formatToday.split('-')
+			var splitDate = formatWeek.split('-')
 			splitDate.push(splitDate.shift())
 			var formatStartDate = splitDate.join('/')
 
 			
-			var splitDate = formatWeek.split('-')
+			var splitDate = formatToday.split('-')
 			splitDate.push(splitDate.shift())
 			var formatEndDate = splitDate.join('/')
 
-			$('#startDate')[0].value = formatToday
-			$('#endDate')[0].value = formatWeek
+			$('#startDate')[0].value = formatWeek
+			$('#endDate')[0].value = formatToday
 
 // Range-date GET request
 
-			$.get(`/range_search?start_date=${formatToday}&end_date=${formatWeek}`, function(body, status) {
+			$.get(`/range_search?start_date=${formatWeek}&end_date=${formatToday}`, function(body, status) {
 
 				body = JSON.parse(body)
 
@@ -435,7 +425,7 @@ $(document).ready(function() {
 								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
 								      View Summary
 								    </a>
-								    <div id="summaryAccordion1" class="collapse" role="tabpanel">
+								    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 								      <ul id="summaryList" class="mb-3">
 								      <li>${'Date Range: ' + formatStartDate + ' - ' + formatEndDate}</li>
 								      <li>${'Total Asteroids: ' + totalAsteroids.length}</li>
@@ -608,7 +598,7 @@ $(document).ready(function() {
 								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
 								      View Summary
 								    </a>
-								    <div id="summaryAccordion1" class="collapse" role="tabpanel">
+								    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 								      <ul id="summaryList" class="mb-3">
 								      <li>${'Date Range: ' + formatStartDate + ' - ' + formatEndDate}</li>
 								      <li>${'Total Asteroids: ' + totalAsteroids.length}</li>
@@ -626,6 +616,18 @@ $(document).ready(function() {
 
 
 	})
+
+//FUNCTIONS ==============================================================================================================================================================================
+
+	// RESET HTML FUNCTION
+
+	var resetHTML = function(){
+
+			$('#entryInfo').empty()
+			$('#entry').empty()
+			$('#message').empty()
+			$('#summary').empty()
+		}
 
 })
 

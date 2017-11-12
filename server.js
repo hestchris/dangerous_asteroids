@@ -54,10 +54,11 @@ app.get('/sentry', function(req, res) {
 
 })
 
+var port = 8081
 
-app.listen(8081, function() {
+app.listen(port, function() {
 
-	console.log("'NASA_part2' on port 8081")
+	console.log("'NASA_part2' on port " + port)
 
 })
 

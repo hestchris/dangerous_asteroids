@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
-html {
+:root {
 
 	font-size: 18px;
 }
@@ -128,7 +128,7 @@ input {
 	margin-bottom: 1rem;
 	cursor: pointer;
 	border: 2px solid #A7A8B1;
-	
+
 }
 
 .form-check-input {
@@ -156,11 +156,6 @@ input {
 
 	margin-top: 3rem;
 	border-top: 2px solid grey;
-}
-
-#entryInfo h2 {
-
-	margin: 2rem;
 }
 
 #message h2 {
