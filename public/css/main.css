@@ -19,9 +19,9 @@ h1 {
 	border-bottom: 2px solid grey;
 }
 
-h3 {
+#entryInfo h3 {
 
-	margin-top: 0;
+	margin-top: .5rem;
 }
 
 #showToday {
