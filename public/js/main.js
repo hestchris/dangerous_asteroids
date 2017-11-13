@@ -31,134 +31,134 @@ $(document).ready(function() {
 // GET TODAY ====================================================================================================================================================================================
 
 			
-			$('#showToday').on('click', function(){
+		$('#showToday').on('click', function(){
 
-				resetHTML()
+			resetHTML()
 
-				var today = new Date()
+			var today = new Date()
 
-				var formatToday = new Date(+today - today.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
+			var formatToday = new Date(+today - today.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
 
-				var splitDate = formatToday.split('-')
-				splitDate.push(splitDate.shift())
-				var formattedDate = splitDate.join('/')
+			var splitDate = formatToday.split('-')
+			splitDate.push(splitDate.shift())
+			var formattedDate = splitDate.join('/')
 
-				$('#dateInput')[0].value = formatToday
+			$('#dateInput')[0].value = formatToday
 
 
 
 
 // Today GET request
 
-					$.get(`/search?start_date=${formatToday}`, function(body, status) {
+				$.get(`/search?start_date=${formatToday}`, function(body, status) {
 
-						body = JSON.parse(body)
+					body = JSON.parse(body)
 
-						var hazardousAsteroids = []
+					var hazardousAsteroids = []
 
-						if (body.near_earth_objects[formatToday]) {
+					if (body.near_earth_objects[formatToday]) {
+					
+					for(var asteroid of body.near_earth_objects[formatToday]) {
 						
-						for(var asteroid of body.near_earth_objects[formatToday]) {
-							
 // Declare variables and push into the hazardousAsteroids array
 
 
-							var name = asteroid.name
+						var name = asteroid.name
 
-							var diameter = Math.floor(Number(asteroid.estimated_diameter.feet.estimated_diameter_max)).toLocaleString()
+						var diameter = Math.floor(Number(asteroid.estimated_diameter.feet.estimated_diameter_max)).toLocaleString()
+					
+						var velocity = Math.floor(Number(asteroid.close_approach_data[0].relative_velocity.miles_per_hour)).toLocaleString()
+
+						var distanceFromEarth = Math.floor(Number(asteroid.close_approach_data[0].miss_distance.miles)).toLocaleString()
+
+						var link = asteroid.nasa_jpl_url
+
 						
-							var velocity = Math.floor(Number(asteroid.close_approach_data[0].relative_velocity.miles_per_hour)).toLocaleString()
+						if(asteroid.is_potentially_hazardous_asteroid) {
 
-							var distanceFromEarth = Math.floor(Number(asteroid.close_approach_data[0].miss_distance.miles)).toLocaleString()
+							hazardousAsteroids.push(asteroid)
 
-							var link = asteroid.nasa_jpl_url
-
-							
-							if(asteroid.is_potentially_hazardous_asteroid) {
-
-								hazardousAsteroids.push(asteroid)
-
-							
+						
 // Print results to html page
 
-								$('#entry').append (
-									`
-									<div id='listDiv'>
-									<h4 id='listName'><a href="${link}" target="_blank">${name}<a></h4>
-									 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
-									 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
-									 <p id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}</p>
-									 </div>
-									 `
-									)
+							$('#entry').append (
+								`
+								<div id='listDiv'>
+								<h4 id='listName'><a href="${link}" target="_blank">${name}<a></h4>
+								 <p id='listDiameter'>${'Estimated Diameter: ' + diameter + ' ft'}</p>
+								 <p id='listVelocity'>${'Velocity: ' + velocity + ' mph'}</p>
+								 <p id='listDistance'>${'Distance from Earth: ' + distanceFromEarth + ' miles'}</p>
+								 </div>
+								 `
+								)
 
-							}		
+						}		
 
-						}
-								
+					}
+							
 // Print to html
-									$('#entryInfo').append (
-										
-										`<h3 class="dateInfo">${'Date: ' + formattedDate}</h3>`
-				
-										)
-						
+								$('#entryInfo').append (
 									
-									if (hazardousAsteroids.length === 0) {
+									`<h3 class="dateInfo">${'Date: ' + formattedDate}</h3>`
+			
+									)
+					
+								
+								if (hazardousAsteroids.length === 0) {
 
-										$('#entryInfo').append (	
+									$('#entryInfo').append (	
 
-											`<h3>No Dangerous Asteroids.</h3>`
+										`<h3>No Dangerous Asteroids.</h3>`
+										)
+									}
+
+									else {
+
+										$('#entryInfo').append (
+											
+											`<h3>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
+											
 											)
-										}
-
-										else {
-
-											$('#entryInfo').append (
-												
-												`<h3>${'Number of Dangerous Asteroids: ' + hazardousAsteroids.length}</h3>`
-												
-												)
-										}
+									}
 // Print Summary
 
-									$('#summary').append (
-										`<div id="summaryAccordion" data-children=".item">
-										  <div class="item">
-										    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
-										      View Summary
-										    </a>
-										    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
-										      <ul id="summaryList" class="mb-3">
-										      <li>${'Date: ' + formattedDate}</li>
-										      <li>${'Total Asteroids: ' + body.near_earth_objects[formatToday].length}</li>
-										      <li>${'Dangerous Asteroids: ' + hazardousAsteroids.length}</li>
-										      </ul>
-										    </div>
-										  </div>
-										</div>
-										`
-										)
-								}
+								$('#summary').append (
+									`<div id="summaryAccordion" data-children=".item">
+									  <div class="item">
+									    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
+									      Summary
+									    </a>
+									    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
+									      <ul id="summaryList" class="mb-3">
+									      <li>${'Date: ' + formattedDate}</li>
+									      <li>${'Total Asteroids: ' + body.near_earth_objects[formatToday].length}</li>
+									      <li>${'Dangerous Asteroids: ' + hazardousAsteroids.length}</li>
+									      </ul>
+									    </div>
+									  </div>
+									</div>
+									`
+									)
+							}
 
-								else {
+							else {
 
-									$('#message').append(`<h2>Invalid date format</h3>`)
-								}
-						
-						})
-								
-			})
-										
+								$('#message').append(`<h2>Invalid date format</h3>`)
+							}
+					
+					})
+							
+		})
+									
 
 // SINGLE-DATE ================================================================================================================================================================================
 
 		
 		$('#search').on('submit', function(event) {
 			
-			event.preventDefault()
-
 			resetHTML()
+			
+			event.preventDefault()
 			
 			var userDate = $('#dateInput').val()
 
@@ -260,7 +260,7 @@ $(document).ready(function() {
 								`<div id="summaryAccordion" data-children=".item">
 								  <div class="item">
 								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
-								      View Summary
+								      Summary
 								    </a>
 								    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 								      <ul id="summaryList" class="mb-3">
@@ -423,7 +423,7 @@ $(document).ready(function() {
 								`<div id="summaryAccordion" data-children=".item">
 								  <div class="item">
 								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
-								      View Summary
+								      Summary
 								    </a>
 								    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 								      <ul id="summaryList" class="mb-3">
@@ -436,7 +436,6 @@ $(document).ready(function() {
 								</div>`
 								)
 
-
 				})
 
 
@@ -447,11 +446,10 @@ $(document).ready(function() {
 
 		
 		$('#rangeSearch').on('submit', function(event) {
-
-			event.preventDefault()
-
+			
 			resetHTML()
 
+			event.preventDefault()
 
 			var startDate = $('#startDate').val()
 			
@@ -596,7 +594,7 @@ $(document).ready(function() {
 								`<div id="summaryAccordion" data-children=".item">
 								  <div class="item">
 								    <a data-toggle="collapse" data-parent="#summaryAccordion" href="#summaryAccordion1" aria-expanded="true" aria-controls="summaryAccordion1">
-								      View Summary
+								      Summary
 								    </a>
 								    <div id="summaryAccordion1" class="collapse show" role="tabpanel">
 								      <ul id="summaryList" class="mb-3">
